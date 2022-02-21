@@ -1,0 +1,44 @@
+<div>
+    <h1 class="w3-center w3-container w3-blue">Lista de Doces</h1>
+    <div class="w3-margin">
+        <form>
+            <label>Id:</label><input type="text" maxlength="6" name="txtId" [(ngModel)]="searchId">
+            <label class="w3-margin-left">Descrição: </label><input type="text" id="txtDescricao" maxlength="100" name="txtDescricao" [(ngModel)]="searchDescricao">
+            
+            <button type="button" id="btnListar" class="w3-btn w3-round w3-blue w3-margin-left" (click)="get()">Listar</button>
+            <button type="button" id="btnNovo" class="w3-btn w3-round w3-blue w3-margin-left" (click)="goToCreate()">Novo</button>
+        </form> 
+    </div>
+    <div class="w3-responsive tbDoces">
+        <table id="tbDoces" class="w3-table-all">
+            <thead>
+                <tr class="w3-blue">
+                    <td class="w3-center">Id</td>
+                    <td class="w3-center">Descrição</td>
+                    <td></td>
+                    <td >Valor</td>
+                    <td class="w3-center">DataFab</td>
+                    <td class="w3-center">Delete</td>
+                </tr>
+            </thead>
+                <tbody *ngIf="doces.length > 0; else listaVazia">
+                    <tr *ngFor="let doce of doces">
+                        <td class="w3-center"><a style="cursor: pointer;" class="w3-button w3-round w3-yellow" (click)="goToEdit(doce.Id)">{{doce.Id}}</a></td>
+                        <td>{{doce.Descricao}}</td>
+                        <td></td>
+                        <td>{{doce.Valor | currency:'BRL':'symbol'}}</td>
+                        <td class="w3-center">{{doce.DataFab | date:'dd-MM-yyyy'}}</td>
+                        <td class="w3-center"><a style="cursor: pointer;" class="w3-center w3-button w3-round w3-red" (click)="delete(doce.Id)">Excluir</a></td>
+                    </tr>
+                </tbody>
+        </table>
+    </div>
+</div>
+
+<ng-template #listaVazia>
+    <tbody>
+        <tr>
+            <td colspan="5">Nenhum doce encontrado.</td>
+        </tr>
+    </tbody>
+</ng-template>
